@@ -35,4 +35,19 @@ class InformationCollector
     {
         return get_bloginfo('url');
     }
+
+    public static function getPhpInfo()
+    {
+        $extensions = get_loaded_extensions();
+
+        foreach ($extensions as $extension)
+        {
+            $extensionsWithVersion[$extension] = phpversion($extension);
+        }
+
+        return [
+            'phpVersion' => phpversion(),
+            'extensions' => $extensionsWithVersion ?? []
+        ];
+    }
 }

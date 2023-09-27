@@ -17,6 +17,7 @@ class APIConnector
                 "url" => InformationCollector::getUrl(),
                 "wordpressVersion" => InformationCollector::getWordpressVersion(),
                 "plugins" => InformationCollector::getPluginVersions(),
+                "phpInfo" => InformationCollector::getPhpInfo()
         ]);
     }
 
