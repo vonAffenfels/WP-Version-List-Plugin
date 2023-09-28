@@ -19,9 +19,13 @@ class InformationCollector
 
         $plugins = get_plugins();
 
-        foreach ($plugins as $plugin)
+        foreach ($plugins as $pluginPath => $plugin)
         {
-            $versions[$plugin['Name']] = $plugin['Version'];
+            $pluginSlug = substr($pluginPath, 0, strpos($pluginPath, '/'));
+            $versions[$plugin['Name']] = [
+                'version' => $plugin['Version'],
+                'slug' => $pluginSlug
+                ];
         }
         return $versions;
     }
