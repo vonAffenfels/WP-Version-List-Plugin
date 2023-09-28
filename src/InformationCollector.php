@@ -53,6 +53,6 @@ class InformationCollector
 
     public static function getOtherInfo()
     {
-        return apply_filters('vaf_version_list_add_information');
+        return apply_filters('vaf_version_list_add_information', []);
     }
 }
