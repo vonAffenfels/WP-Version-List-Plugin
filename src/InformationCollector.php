@@ -50,4 +50,9 @@ class InformationCollector
             'extensions' => $extensionsWithVersion ?? []
         ];
     }
+
+    public static function getOtherInfo()
+    {
+        return apply_filters('vaf_version_list_add_information');
+    }
 }
