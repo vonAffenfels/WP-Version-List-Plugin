@@ -35,7 +35,16 @@ After activating the plugin, it will automatically add a Settings-Page where you
 the Entry-ID, JWT Token and API URL. you get the Entry-ID and JWT Token by register the new Instanz 
 here: https://wp-versions.ape/. \
 After saving the Settings an WP-cronjob will be added, wich sends the collected Information once a 
-day to the API. 
+day to the API.
+
+You can add your own custom Information by calling a Filter. \
+e.g.
+```php
+add_filter('vaf_version_list_add_information', function ($currentCustomInformation) {
+    $currentCustomInformation['myInformation'] = 'ver0.0.0';
+    return $currentCustomInformation;
+});
+```
 
 ## Features
 
