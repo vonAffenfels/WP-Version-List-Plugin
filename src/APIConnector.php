@@ -13,7 +13,6 @@ class APIConnector
             $token,
             [
                 "id" => get_option('version_lists_settings_input_field_id'),
-                "name" => InformationCollector::getName(),
                 "url" => InformationCollector::getUrl(),
                 "wordpressVersion" => InformationCollector::getWordpressVersion(),
                 "plugins" => InformationCollector::getPluginVersions(),

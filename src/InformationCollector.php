@@ -30,11 +30,6 @@ class InformationCollector
         return $versions;
     }
 
-    public static function getName()
-    {
-        return get_bloginfo('name');
-    }
-
     public static function getUrl()
     {
         return get_bloginfo('url');
