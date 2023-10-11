@@ -15,7 +15,10 @@ class Plugin
             $apiConnector->sendInformationToAPI();
         }
 
-        $this->initCronJob();
+        if (!wp_next_scheduled('version_list_daily_cron'))
+        {
+            $this->initCronJob();
+        }
     }
 
 

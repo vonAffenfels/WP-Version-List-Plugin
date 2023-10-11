@@ -55,3 +55,11 @@ add_filter('vaf_version_list_add_information', function ($currentCustomInformati
 
 - **1.0.0** (28.09.2023)
     - Initial release of the plugin.
+
+
+- **1.0.1** (10.10.2023)
+    - remove Blogname from collected Information
+
+
+- **1.0.2** (11.10.2023)
+  - Limit registered Cronjobs to one
