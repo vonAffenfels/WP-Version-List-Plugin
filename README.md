@@ -63,3 +63,7 @@ add_filter('vaf_version_list_add_information', function ($currentCustomInformati
 
 - **1.0.2** (11.10.2023)
   - Limit registered Cronjobs to one
+
+
+- **1.1.0** (30.11.2023)
+  - Remove Cron Logic and add custom REST Endpoint

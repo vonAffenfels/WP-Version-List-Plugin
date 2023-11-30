@@ -4,6 +4,9 @@ namespace VersionList;
 
 class APIConnector
 {
+    /**
+     * @throws \Exception
+     */
     public function sendInformationToAPI(): void
     {
         $apiUrl = get_option('version_lists_settings_input_field_url');
@@ -40,13 +43,10 @@ class APIConnector
 
         if (!$responseData['success'])
         {
-            echo "<pre>", var_dump($responseData), "</pre>";
-            die();
+            throw new \Exception('something went wrong');
         }
 
         $this->setNewToken($responseData['token']);
-
-
     }
 
     private function setNewToken($token)

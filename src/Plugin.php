@@ -4,31 +4,50 @@ namespace VersionList;
 
 class Plugin
 {
-    public function init()
+    public function init(): void
     {
         $settingsPage = new SettingsPage();
         $settingsPage->initSettingsPage();
+        $apiConnector = new APIConnector();
 
         if (isset($_POST['btn-send-to-api']))
         {
-            $apiConnector = new APIConnector();
-            $apiConnector->sendInformationToAPI();
+            try {
+                $apiConnector->sendInformationToAPI();
+            } catch (\Exception $e) {
+                echo "<pre>", var_dump($e), "</pre>";
+                die();
+            }
         }
 
-        if (!wp_next_scheduled('version_list_daily_cron'))
-        {
-            $this->initCronJob();
-        }
+        $this->addHooks();
+
     }
 
 
-    private function initCronJob()
+    private function addHooks(): void
     {
-        wp_schedule_event(time(), 'daily', 'version_list_daily_cron');
-
-        add_action('version_list_daily_cron', function (){
-            $apiConnector = new APIConnector();
-            $apiConnector->sendInformationToAPI();
+        add_action('rest_api_init', function (){
+            register_rest_route('version_list/v1', 'send', [
+                'methods' => 'GET',
+                'callback' => [$this, 'sendInformation']
+            ]);
         });
     }
+
+
+    public function sendInformation()
+    {
+        $apiConnector = new APIConnector();
+
+        try {
+            $apiConnector->sendInformationToAPI();
+        } catch (\Exception $e) {
+            return $e;
+        }
+
+        return 'success';
+    }
+
+
 }
