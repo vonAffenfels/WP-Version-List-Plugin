@@ -30,7 +30,8 @@ class Plugin
         add_action('rest_api_init', function (){
             register_rest_route('version_list/v1', 'send', [
                 'methods' => 'GET',
-                'callback' => [$this, 'sendInformation']
+                'callback' => [$this, 'sendInformation'],
+                'permission_callback' => '__return_true',
             ]);
         });
     }
