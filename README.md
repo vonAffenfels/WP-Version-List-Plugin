@@ -67,3 +67,7 @@ add_filter('vaf_version_list_add_information', function ($currentCustomInformati
 
 - **1.1.0** (30.11.2023)
   - Remove Cron Logic and add custom REST Endpoint
+
+  
+- **1.1.3** (26.07.2024)
+  - Add PHP 7.4 Support
