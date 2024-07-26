@@ -2,10 +2,12 @@
 
 namespace VersionList;
 
+use Exception;
+
 class APIConnector
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function sendInformationToAPI(): void
     {
@@ -43,7 +45,7 @@ class APIConnector
 
         if (!$responseData['success'])
         {
-            throw new \Exception('something went wrong');
+            throw new Exception('something went wrong');
         }
 
         $this->setNewToken($responseData['token']);
