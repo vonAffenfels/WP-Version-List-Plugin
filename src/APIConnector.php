@@ -43,9 +43,9 @@ class APIConnector
         $responseData = json_decode($response, true);
         curl_close($ch);
 
-        if (!$responseData['success'])
+        if (!($responseData['success'] ?? null))
         {
-            throw new Exception('something went wrong');
+            throw new Exception('Error sending API request: ' . $response);
         }
 
         $this->setNewToken($responseData['token']);
