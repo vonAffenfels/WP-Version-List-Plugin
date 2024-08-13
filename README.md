@@ -71,3 +71,6 @@ add_filter('vaf_version_list_add_information', function ($currentCustomInformati
   
 - **1.1.3** (26.07.2024)
   - Add PHP 7.4 Support
+
+- **1.1.4** (13.08.2024)
+  - Add WP 5.0 Support

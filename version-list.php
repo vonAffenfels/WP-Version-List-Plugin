@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Version List
  * Description:       WordPress Plugin to send current Versions to VA Api
- * Version:           1.1.3
- * Requires at least: 5.9.3
- * Author:            vonAffenfels <niklas.nellinger@vonaffenfels.de>
+ * Version:           1.1.4
+ * Requires at least: 5.0.0
+ * Author:            vonAffenfels <team-php@vonaffenfels.de>
  * Author URI:        https://www.vonaffenfels.de
  */
 
