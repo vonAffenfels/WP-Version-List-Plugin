@@ -23,7 +23,7 @@ software versions used on your website and send the information to our API.
 2. Require it by adding it to your composer.json
 ```json
     "require": {
-        "va/wp-plugin-version-list": "^1.0.5",
+        "va/wp-plugin-version-list": "^1.1.0",
     }
 ```
 3. Execute "composer update"
