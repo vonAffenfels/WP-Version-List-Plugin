@@ -74,3 +74,6 @@ add_filter('vaf_version_list_add_information', function ($currentCustomInformati
 
 - **1.1.4** (13.08.2024)
   - Add WP 5.0 Support
+
+- **1.1.5** (17.10.2024)
+  - Set CURL Timeouts
