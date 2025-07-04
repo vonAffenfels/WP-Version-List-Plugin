@@ -1,0 +1,83 @@
+name: Update Plugin Version on Tag Push
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+
+      - name: Sync branch (fetch & reset)
+        run: |
+          BRANCH=${{ github.event.repository.default_branch }}
+          git fetch origin "$BRANCH"
+          git reset --hard origin/"$BRANCH"
+
+      - name: Read plugin file path from composer.json
+        run: |
+          NAME=$(jq -r '.name' composer.json)
+          PLUGIN_NAME=${NAME#*/}
+          PLUGIN_FILE="$PLUGIN_NAME.php"
+          echo "PLUGIN_FILE=$PLUGIN_FILE" >> $GITHUB_ENV
+          echo "Plugin file path: $PLUGIN_FILE"
+
+      - name: Update plugin version in PHP file
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          ESCAPED_TAG=$(printf '%s\n' "$TAG" | sed 's/[\/&]/\\&/g')
+
+          echo "Before replacement:"
+          head -n 10 "$PLUGIN_FILE"
+
+          sed -i "s/^\(\s*\*\s*[Vv]ersion:\s*\).*/\1$ESCAPED_TAG/" "$PLUGIN_FILE"
+
+          echo "After replacement:"
+          head -n 10 "$PLUGIN_FILE"
+
+      - name: Commit and push changes with retry and update tag
+        env:
+          TAG: ${{ github.ref_name }}
+          BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          RETRIES=5
+          for i in $(seq 1 $RETRIES); do
+            echo "Attempt $i to push..."
+
+            git add "$PLUGIN_FILE"
+
+            if git diff --cached --quiet; then
+              echo "No changes to commit"
+              break
+            else
+              git commit -m "chore: Update plugin version to $TAG [skip ci]"
+            fi
+
+            if git push origin "$BRANCH"; then
+              echo "Push successful!"
+
+              echo "Updating tag $TAG to point to the latest commit..."
+              git tag -f "$TAG"
+              git push --force origin "$TAG"
+
+              break
+            else
+              echo "Push failed, retrying after 5 seconds..."
+              sleep 5
+              git fetch origin "$BRANCH"
+              git reset --hard origin/"$BRANCH"
+            fi
+          done
