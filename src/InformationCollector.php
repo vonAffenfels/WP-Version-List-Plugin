@@ -4,6 +4,8 @@ namespace VersionList;
 
 class InformationCollector
 {
+    public const OPTION_REPOSITORY_URL = 'version_lists_settings_input_field_repository_url';
+
     public static function getWordpressVersion(): ?string
     {
         global $wp_version;
@@ -33,6 +35,11 @@ class InformationCollector
     public static function getUrl()
     {
         return get_bloginfo('url');
+    }
+
+    public static function getRepositoryUrl(): string
+    {
+        return (string) get_option(self::OPTION_REPOSITORY_URL, '');
     }
 
     public static function getPhpInfo()

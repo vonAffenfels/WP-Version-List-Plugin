@@ -37,6 +37,30 @@ here: https://wp-versions.ape/. \
 After saving the Settings an WP-cronjob will be added, wich sends the collected Information once a 
 day to the API.
 
+### Repository URL (GitHub/GitLab)
+
+The GitHub or GitLab URL of an instance can be stored either on the Settings-Page
+("Repository Url (GitHub/GitLab)") or via the REST endpoint. The stored URL is sent to the API
+as `repositoryUrl` together with the other collected information.
+
+Read the currently stored URL:
+```
+GET /wp-json/version_list/v1/repository-url
+```
+
+Store (or overwrite) the URL:
+```
+POST /wp-json/version_list/v1/repository-url
+Content-Type: application/json
+
+{"repositoryUrl": "https://github.com/vonAffenfels/WP-Version-List-Plugin"}
+```
+
+Send an empty string to remove the stored URL. Both routes require an authenticated user with the
+`manage_options` capability (e.g. via an Application Password).
+
+### Custom Information
+
 You can add your own custom Information by calling a Filter. \
 e.g.
 ```php

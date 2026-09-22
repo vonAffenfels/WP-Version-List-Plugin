@@ -131,6 +131,26 @@ class SettingsPage
             'version-list-settings-page',
             'version_lists_settings_section'
         );
+
+        // Register repository url input field
+        register_setting(
+            'version-list-settings-page',
+            InformationCollector::OPTION_REPOSITORY_URL,
+            array(
+                'type' => 'string',
+                'sanitize_callback' => 'esc_url_raw',
+                'default' => ''
+            )
+        );
+
+        // Add repository url fields
+        add_settings_field(
+            InformationCollector::OPTION_REPOSITORY_URL,
+            __( 'Repository Url (GitHub/GitLab)', 'version-list' ),
+            [$this,'version_lists_settings_input_field_repository_url_callback'],
+            'version-list-settings-page',
+            'version_lists_settings_section'
+        );
     }
 
 
@@ -146,6 +166,14 @@ class SettingsPage
         $version_listinput_field = get_option('version_lists_settings_input_field_url');
         ?>
         <input type="text" name="version_lists_settings_input_field_url" class="regular-text" value="<?php echo isset($version_listinput_field) ? esc_attr( $version_listinput_field ) : ''; ?>" />
+        <?php
+    }
+
+
+    public function version_lists_settings_input_field_repository_url_callback() {
+        $version_listinput_field = InformationCollector::getRepositoryUrl();
+        ?>
+        <input type="url" name="<?php echo esc_attr( InformationCollector::OPTION_REPOSITORY_URL ); ?>" class="regular-text" value="<?php echo esc_attr( $version_listinput_field ); ?>" />
         <?php
     }
 
