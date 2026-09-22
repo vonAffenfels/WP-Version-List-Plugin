@@ -19,7 +19,6 @@ class APIConnector
             [
                 "id" => get_option('version_lists_settings_input_field_id'),
                 "url" => InformationCollector::getUrl(),
-                "repositoryUrl" => InformationCollector::getRepositoryUrl(),
                 "wordpressVersion" => InformationCollector::getWordpressVersion(),
                 "plugins" => InformationCollector::getPluginVersions(),
                 "phpInfo" => InformationCollector::getPhpInfo(),
