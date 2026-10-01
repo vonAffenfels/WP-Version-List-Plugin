@@ -13,10 +13,13 @@
   },
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "7.2.5"
+    }
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=7.2.5",
     "ext-json": "*",
     "guzzlehttp/guzzle": "^6.4 | ^7.4"
   },
