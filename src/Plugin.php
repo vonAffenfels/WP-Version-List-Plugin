@@ -31,6 +31,7 @@ class Plugin
             register_rest_route('version_list/v1', 'send', [
                 'methods' => 'GET',
                 'callback' => [$this, 'sendInformation'],
+                // TODO: check: any visitor, without login, can trigger the outgoing version report
                 'permission_callback' => '__return_true',
             ]);
         });
